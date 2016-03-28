@@ -1,0 +1,7 @@
+download.file("https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip","raw_data.zip")
+unzip("raw_data.zip")
+energyConsumption <- read.csv(pipe("findstr /B /R ^[1-2]/2/2007 household_power_consumption.txt"), na.strings="?", sep = ";")
+str(energyConsumption)
+plot1 <- png("plot1.png",width=480,height=480)
+hist(energyConsumption$X0.326, col = "red", xlab = "Global Active Power (kilowatts)", ylab = "Frequency", main = "Global Active Power")
+dev.off()

@@ -1,0 +1,15 @@
+download.file("https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip","raw_data.zip")
+unzip("raw_data.zip")
+energyConsumption <- read.csv(pipe("findstr /B /R ^[1-2]/2/2007 household_power_consumption.txt"), na.strings="?", sep = ";")
+str(energyConsumption)
+language <- "English" 
+Sys.setlocale("LC_TIME", language) 
+plot3 <- png("plot3.png",width=480,height=480)
+energyConsumption$DateTime <- strptime(paste(energyConsumption$ X1.2.2007, energyConsumption$X00.00.00), format="%d/%m/%Y %H:%M:%S")
+plot(energyConsumption$DateTime, energyConsumption$X0.000, ylab = "Energy sub metering", xlab = "", type = "n")
+points(energyConsumption$DateTime, energyConsumption$X0.000, type = "l")
+points(energyConsumption$DateTime, energyConsumption$X0.000.1, type = "l", col = "red")
+points(energyConsumption$DateTime, energyConsumption$X0.000.2, type = "l", col = "blue")
+legend("topright", pch = "-", col = c("black", "red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+dev.off()
+
